@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PersonalProject</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <font size ="12"> Welcome!</font>
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+  <h1> Look at this!<h1>
+</div>
+
+<div class="container">
+</div>
+<hr>
+<footer>
+  <div class="container">
+    <p>&copy; Becca Vasil</p>
+      <font size ="5"><%= link_to("Linkedin", "http://www.linkedin.com/pub/rebecca-vasil/6b/226/8b2") %></font>
+  </div>
+</footer>
+<%= yield %>
+
+</body>
+</html>

@@ -18,26 +18,19 @@
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Home</a>
-        </div>
-        <div class="navbar-collapse collapse">
+        <ul class="navbar-brand">
+          <font size= "5"><%= link_to "On Course!", root_path %> </font>
+        </ul>
           <ul class="navbar-form navbar-right" role="form">
-            <li class= "list list-unstyled"><% if current_user %>
-            <%= link_to ("#{current_user.first_name} #{current_user.last_name}"), user_path(current_user), class: "btn btn-info"%>
-            |
-            <%= link_to "Sign Out", signout_path, class: "btn btn-primary" %>
+            <li class= "list list-unstyled">
+
+            <% if current_user %>
+              <%= link_to ("#{current_user.first_name} #{current_user.last_name}"), user_path(current_user), class: "btn btn-info"%>
+              |
+              <%= link_to "Sign Out", signout_path, class: "btn btn-primary" %>
 
             <% else %>
-
-            <%= form_tag signin_path do |f| %>
-
+              <%= form_tag signin_path do |f| %>
               <% if @sign_in_error %>
                 <div class= "text-danger">
                   <font size= "3">
@@ -45,36 +38,20 @@
                   </font>
                 </div>
               <% end %>
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <%= submit_tag "Sign in", class: "btn btn-primary" %>
-            <%end%>
 
-            <%= link_to 'Sign Up', signup_path, class: "btn btn-primary"%>
+              <div class="form-group">
+                <%= email_field_tag :email, "", class: "form-control", placeholder: "Email" %>
+              </div>
+              <div class="form-group">
+                <%= password_field_tag :password, "", class: "form-control", placeholder: "Password" %>
+              </div>
+              <%= submit_tag "Sign in",  class: "btn btn-primary" %>
+              <%= link_to 'Sign Up', signup_path, class: "btn btn-primary"%>
+            <% end %>
             <% end %></li>
-        </ul>
-          </form>
+          </ul>
         </div><!--/.navbar-collapse -->
       </div>
-    </div>
-
-<li class= "list list-unstyled"><% if current_user %>
-         <%= link_to ("#{current_user.first_name} #{current_user.last_name}"), user_path(current_user) %>
-         |
-         <%= link_to "Sign Out", signout_path %>
-
-    <% else %>
-
-         <%= link_to "Sign Up", signup_path %>
-         |
-         <%= link_to "Sign In", signin_path %>
-    <% end %></li>
-
-
 
 
 <%= yield %>

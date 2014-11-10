@@ -16,3 +16,28 @@
  *= require_tree .
  *= require_self
  */
+.full {
+  background-image: url(image-path('Lantinus_and_Lynch.jpg')) !important;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+.jumbotron{
+  background-color: transparent !important;
+  width: 1294px;
+  height:600px;
+}
+
+
+.image-responsive {
+  width: 100%;
+}
+
+.image-crop{
+//  height:500px;
+  overflow:hidden
+}

@@ -7,7 +7,7 @@ class AuthenticationController < ApplicationController
       redirect_to root_path
     else
       @sign_in_error = "Username / password combination is invalid"
-      render :new 
+      render :"pages/index"
     end
   end
 

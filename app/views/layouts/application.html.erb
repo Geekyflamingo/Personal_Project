@@ -16,16 +16,23 @@
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
-        <ul class="navbar-brand">
-          <font size= "5"><%= link_to "On Course!", root_path %> </font>
-        </ul>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-brand"><%= link_to "On Course!", root_path %></div>
+        </div>
+        <div class= "navbar-collapse collapse">
           <ul class="navbar-form navbar-right" role="form">
             <li class= "list list-unstyled">
 
             <% if current_user %>
-              <%= link_to ("#{current_user.first_name} #{current_user.last_name}"), user_path(current_user), class: "btn btn-info"%>
+              <%= link_to ("#{current_user.first_name} #{current_user.last_name}"), user_path(current_user) %>
               |
               <%= link_to "Sign Out", signout_path, class: "btn btn-primary" %>
 
@@ -37,7 +44,7 @@
                     <%= @sign_in_error %>
                   </font>
                 </div>
-              <% end %>
+              <% end %> -->
 
               <div class="form-group">
                 <%= email_field_tag :email, "", class: "form-control", placeholder: "Email" %>
@@ -50,9 +57,8 @@
             <% end %>
             <% end %></li>
           </ul>
-        </div><!--/.navbar-collapse -->
-      </div>
-
+        </div>
+      </nav>
 
 <%= yield %>
 

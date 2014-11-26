@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root "pages#index"
-
+  get "/dashboard" => "pages#dashboard", as: :dashboard
   resources :users
 
 get '/sign-up' => 'registrations#new', as: :signup

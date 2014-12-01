@@ -75,7 +75,8 @@ a:hover{
 /*****PANEL*****/
 
 #menu {
-  background: #f9f9f9;
+  background: #000000;
+  color: #2a6496;
   border-right: 3px solid #fff;
   width: 200px;
   padding: 30px;
@@ -101,7 +102,7 @@ a:hover{
 
 #menu .arrow {
   font: normal 400 25px/25px 'Acme', Helvetica, Arial, sans-serif; /* Acme font is required for .arrow */
-  color: rgba(0,0,0,0.75); /* Arrow color */
+  color: rgba(42,100,150,1); /* Arrow color */
   width: 16px;
   height: 25px;
   display: block;

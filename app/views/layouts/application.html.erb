@@ -11,6 +11,67 @@
     <title>On Course!</title>
 
     <%= stylesheet_link_tag 'application' %>
+    <script src="http://code.createjs.com/easeljs-0.8.0.min.js"></script>
+    <script>
+
+    var stageWidth = 1000;
+    var stageHeight = 800;
+    var stage;
+    var update = true;
+    var shape2;
+
+    function init(){
+
+      //new stage
+      stage = new createjs.Stage(document.getElementById("myCanvas"));
+      stage.enableMouseOver();
+
+      //rectangle
+      shape2 = new createjs.Shape();
+      shape2.graphics.beginFill(createjs.Graphics.getRGB(255,0,0));
+      shape2.graphics.rect(0,0,100,60);
+      shape2.regX = 200;
+      shape2.regY = 30;
+      shape2.x = stageWidth/2 - 150;
+      shape2.y = stageHeight/2;
+      // using "on" binds the listener to the scope of the currentTarget by default
+      // in this case that means it executes in the scope of the button.
+      shape2.on("mousedown", function (evt) {
+        this.parent.addChild(this);
+        this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
+      });
+
+      // the pressmove event is dispatched when the mouse moves after a mousedown on the target until the mouse is released.
+      shape2.on("pressmove", function (evt) {
+        this.x = evt.stageX + this.offset.x;
+        this.y = evt.stageY + this.offset.y;
+        // indicate that the stage should be updated on the next tick:
+        update = true;
+      });
+      stage.addChild(shape2);
+
+      //draw to the canvas
+      // stage.update();
+      createjs.Ticker.addEventListener("tick",tick);
+    }
+
+    function pressHandler(e){
+      e.onMouseMove = function(ev){
+        e.target.x = ev.stageX;
+        e.target.y = ev.stageY;
+        update = true;
+      }
+    }
+
+    function tick(event) {
+      // this set makes it so the stage only re-renders when an event handler indicates a change has happened.
+      if (update) {
+        update = false; // only update once
+        stage.update(event);
+      }
+    }
+
+    </script>
 
   </head>
 

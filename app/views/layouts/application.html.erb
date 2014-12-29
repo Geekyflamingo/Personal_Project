@@ -11,6 +11,11 @@
     <title>On Course!</title>
 
     <%= stylesheet_link_tag 'application' %>
+    <style type="text/css">
+    #myCanvas{
+      background-color: #D1C860;
+    }
+    </style>
     <script src="http://code.createjs.com/easeljs-0.8.0.min.js"></script>
     <script>
 
@@ -67,12 +72,12 @@
       // this set makes it so the stage only re-renders when an event handler indicates a change has happened.
       if (update) {
         update = false; // only update once
+        stage.
         stage.update(event);
       }
     }
 
     </script>
-
   </head>
 
   <body <% if request.fullpath == '/' %> class="home-page" <% end %>>

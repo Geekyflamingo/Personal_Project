@@ -24,6 +24,9 @@
     var stage;
     var update = true;
     var shape2;
+    var rotate_clockwise;
+    var img;
+    var rotdegr = 3;
 
     function init(){
 
@@ -34,11 +37,21 @@
       //rectangle
       shape2 = new createjs.Shape();
       shape2.graphics.beginFill(createjs.Graphics.getRGB(255,0,0));
-      shape2.graphics.rect(0,0,100,60);
+      shape2.graphics.rect(0,0,100,10);
       shape2.regX = 200;
       shape2.regY = 30;
       shape2.x = stageWidth/2 - 150;
       shape2.y = stageHeight/2;
+      stage.autoClear = true;
+      stage.enableDOMEvents(true);
+      createjs.Touch.enable(stage);
+      createjs.Ticker.setFPS(30);
+      shape2.snapToPixel = true;
+      shape2.mouseEnabled = true;
+      shape2.alpha = 0.7;
+      shape2.addEventListener("mousedown", handleMouseDown);
+      stage.addEventListener("stagemouseup", handleMouseUp);
+      stage.update();
       // using "on" binds the listener to the scope of the currentTarget by default
       // in this case that means it executes in the scope of the button.
       shape2.on("mousedown", function (evt) {
@@ -58,7 +71,14 @@
       //draw to the canvas
       // stage.update();
       createjs.Ticker.addEventListener("tick",tick);
+
+      // // rotate element
+      // img = new Image();
+      // img.onload = setupCanvas;
+      // img.src = "images/rotate_clockwise.png";
+
     }
+
 
     function pressHandler(e){
       e.onMouseMove = function(ev){
@@ -76,6 +96,34 @@
         stage.update(event);
       }
     }
+
+    function stop() {
+      createjs.Ticker.removeEventListener("tick", tick);
+    }
+
+    function handleMouseDown(event) {
+      stage.addEventListener("stagemousemove" , handleMouseMove);
+    }
+
+    function handleMouseMove(event) {
+      rotateWheel(1);
+    }
+
+    function rotateWheel(type){
+      if(type > 0){
+        //clockwise
+        shape2.rotation = shape2.rotation + rotdegr;
+      }else if(type < 0){
+        //anti clockwise
+        shape2.rotation = shape2.rotation - rotdegr;
+      }
+      stage.update();
+    }
+
+    function handleMouseUp(event) {
+      stage.removeEventListener("stagemousemove" , handleMouseMove);
+    }
+
 
     </script>
   </head>

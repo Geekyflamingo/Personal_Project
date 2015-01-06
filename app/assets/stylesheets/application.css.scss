@@ -63,7 +63,7 @@ a:hover{
 
 /*****ANIMATONS (optional)*****/
 
-#menu, #menu .arrow, #menu nav a {
+.menu, .menu .arrow, .menu nav a {
   transition: all 0.4s;
   -moz-transition: all 0.4s;
   -webkit-transition: all 0.4s;
@@ -74,7 +74,7 @@ a:hover{
 
 /*****PANEL*****/
 
-#menu {
+.menu {
   background: #000000;
   color: #2a6496;
   border-right: 3px solid #fff;
@@ -88,19 +88,19 @@ a:hover{
   -webkit-box-shadow: 1px 0 3px rgba(0,0,0,0.25);
 }
 
-#menu {
+.menu {
   left: 0; /* Change to right: 0; if you want the panel to display on the right side. */
 }
 
-#menu:hover, #menu:focus {
+.menu:hover, .menu:focus {
   left: 0 !important; /* Change to right: 0 !important; if you want the panel to display on the right side. */
 }
 
-#menu .arrow {
+.menu .arrow {
   right: 2px; /* Change to left: 2px; if you want the panel to display on the right side. */
 }
 
-#menu .arrow {
+.menu .arrow {
   font: normal 400 25px/25px 'Acme', Helvetica, Arial, sans-serif; /* Acme font is required for .arrow */
   color: rgba(42,100,150,1); /* Arrow color */
   width: 16px;
@@ -111,18 +111,18 @@ a:hover{
   cursor: default;
 }
 
-#menu:hover .arrow {
+.menu:hover .arrow {
   transform: rotate(-180deg) translate(6px,-3px);
   -moz-transform: rotate(-180deg) translate(6px,-3px);
   -webkit-transform: rotate(-180deg) translate(6px,-3px);
 }
 
-#menu nav {
+.menu nav {
   position: relative;
   top: 75px;
 }
 
-#menu nav a {
+.menu nav a {
   padding: 20px 5px;
   border-bottom: 1px dotted #c0c0c0;
   display: block;
@@ -132,7 +132,7 @@ a:hover{
   text-decoration: none;
 }
 
-#menu nav a:hover {
+.menu nav a:hover {
   color: #ec6912;
 }
 

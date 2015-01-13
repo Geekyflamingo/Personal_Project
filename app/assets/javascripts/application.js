@@ -21,7 +21,7 @@ var stageWidth = 1000;
 var stageHeight = 800;
 var stage;
 var update = true;
-var shape2;
+
 var rotate_clockwise;
 var img;
 var rotdegr = 3;
@@ -32,25 +32,24 @@ function init(){
   //new stage
   stage = new createjs.Stage(document.getElementById("myCanvas"));
   stage.enableMouseOver();
+  stage.autoClear = true;
+  stage.enableDOMEvents(true);
+  createjs.Touch.enable(stage);
+  createjs.Ticker.setFPS(200);
+  createjs.Ticker.addEventListener("tick",tick);
+}
 
-  //rectangle
-  shape2 = new createjs.Shape();
+function newJump(){
+  var shape2 = new createjs.Shape();
   shape2.graphics.beginFill(createjs.Graphics.getRGB(255,0,0));
   shape2.graphics.rect(0,0,100,10);
   shape2.regX = 50;
   shape2.regY = 5;
   shape2.x = stageWidth/2;
   shape2.y = stageHeight/2;
-  stage.autoClear = true;
-  stage.enableDOMEvents(true);
-  createjs.Touch.enable(stage);
-  createjs.Ticker.setFPS(30);
   shape2.snapToPixel = true;
   shape2.mouseEnabled = true;
   shape2.alpha = 0.7;
-  // shape2.on("dblclick", handleMouseDown);
-
-  stage.update();
   // using "on" binds the listener to the scope of the currentTarget by default
   // in this case that means it executes in the scope of the button.
   shape2.on("mousedown", function (evt) {
@@ -71,7 +70,7 @@ function init(){
     //
     // }
     if( Math.abs(this.offset.x) > 20 ){
-      rotateCounter();
+      rotateCounter(this);
     }else{
       this.x = evt.stageX + this.offset.x;
       this.y = evt.stageY + this.offset.y;
@@ -80,9 +79,9 @@ function init(){
     }
   });
   stage.addChild(shape2);
-
+  stage.update();
   //draw to the canvas
-  createjs.Ticker.addEventListener("tick",tick);
+
 }
 
 
@@ -106,8 +105,8 @@ function stop() {
   createjs.Ticker.removeEventListener("tick", tick);
 }
 
-function rotateCounter() {
-  shape2.rotation += -3;
+function rotateCounter(shape) {
+  shape.rotation += -3;
   update = true;
 }
 

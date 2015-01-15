@@ -17,6 +17,20 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).on("ajax:success", "[data-behavior=sign-in]", function (e, response) {
+  if (response.error) {
+    $(this).closest("form").find(".text-danger").removeClass("invisible");
+  } else {
+    document.location = response.redirect;
+  }
+  return false;
+});
+
+$(document).on("click", "[data-behavior=sign-in] input[type=submit]", function (e, response) {
+  $(this).closest("form").find(".text-danger").addClass("invisible");
+});
+
 var stageWidth = 1000;
 var stageHeight = 800;
 var stage;
@@ -40,21 +54,21 @@ function init(){
 
 function newJump(){
   //new rectangle(jump)
-  var shape2 = new createjs.Shape();
-  shape2.graphics.beginFill(createjs.Graphics.getRGB(0,0,255));
-  shape2.graphics.rect(0,0,110,20);
-  shape2.graphics.beginFill(createjs.Graphics.getRGB(255,0,0));
-  shape2.graphics.rect(5,5,100,10);
-  shape2.regX = 50;
-  shape2.regY = 5;
-  shape2.x = stageWidth/2;
-  shape2.y = stageHeight/2;
-  shape2.snapToPixel = true;
-  shape2.mouseEnabled = true;
-  shape2.alpha = 0.7;
+  var jump = new createjs.Shape();
+  jump.graphics.beginFill(createjs.Graphics.getRGB(0,0,255));
+  jump.graphics.rect(0,0,110,20);
+  jump.graphics.beginFill(createjs.Graphics.getRGB(255,0,0));
+  jump.graphics.rect(5,5,100,10);
+  jump.regX = 50;
+  jump.regY = 5;
+  jump.x = stageWidth/2;
+  jump.y = stageHeight/2;
+  jump.snapToPixel = true;
+  jump.mouseEnabled = true;
+  jump.alpha = 0.7;
   // using "on" binds the listener to the scope of the currentTarget by default
   // in this case that means it executes in the scope of the button.
-  shape2.on("mousedown", function (evt) {
+  jump.on("mousedown", function (evt) {
     this.parent.addChild(this);
     console.log(this, evt);
     this.offset = {
@@ -63,10 +77,10 @@ function newJump(){
     };
   });
   // the pressmove event is dispatched when the mouse moves after a mousedown on the target until the mouse is released.
-  shape2.on("pressmove", function (evt) {
+  jump.on("pressmove", function (evt) {
     console.log(this.offset);
-    console.log(Math.sin(shape2.rotation));
-    // if(Math.abs(Math.sin(shape2.rotation)) < .15)){
+    console.log(Math.sin(jump.rotation));
+    // if(Math.abs(Math.sin(jump.rotation)) < .15)){
     //
     // }else{
     //
@@ -80,7 +94,7 @@ function newJump(){
       update = true;
     }
   });
-  stage.addChild(shape2);
+  stage.addChild(jump);
   stage.update();
   //draw to the canvas
 
@@ -111,10 +125,6 @@ function rotateCounter(shape) {
   shape.rotation += -3;
   update = true;
 }
-
-$('document').ready(function() {
-  init();
-});
 
 // function persist(){
 //   for (i = 0 ; i < stage.length(); i++){

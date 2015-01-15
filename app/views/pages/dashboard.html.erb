@@ -1,27 +1,4 @@
 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Sliding Menu Panel</title>
-
-
-  <%= stylesheet_link_tag 'application' %>
-
-
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-
-
-  <script type="text/javascript">
-  $(document).ready(function() {
-    $("#menu").height($(document).height());
-  });
-  </script>
-
-
-  <script type="text/javascript">
-  $(document).ready(function() {
-    setTimeout( function(){$('#menu').css('left','-160px');},500);
-  });
-  </script>
-
   <div id="menu" class="menu">
     <div class="arrow"><</div>
     <nav class="nav">
@@ -53,5 +30,12 @@
 <br>
 <br>
 
-</body>
-</html>
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#menu").height($(document).height());
+      init();
+      setTimeout( function(){$('#menu').css('left','-160px');},500);
+    });
+  </script>
+<% end %>

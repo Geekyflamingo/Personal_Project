@@ -21,7 +21,6 @@ var stageWidth = 1000;
 var stageHeight = 800;
 var stage;
 var update = true;
-
 var rotate_clockwise;
 var img;
 var rotdegr = 3;
@@ -40,9 +39,12 @@ function init(){
 }
 
 function newJump(){
+  //new rectangle(jump)
   var shape2 = new createjs.Shape();
+  shape2.graphics.beginFill(createjs.Graphics.getRGB(0,0,255));
+  shape2.graphics.rect(0,0,110,20);
   shape2.graphics.beginFill(createjs.Graphics.getRGB(255,0,0));
-  shape2.graphics.rect(0,0,100,10);
+  shape2.graphics.rect(5,5,100,10);
   shape2.regX = 50;
   shape2.regY = 5;
   shape2.x = stageWidth/2;
@@ -74,7 +76,7 @@ function newJump(){
     }else{
       this.x = evt.stageX + this.offset.x;
       this.y = evt.stageY + this.offset.y;
-      // indicate that the stage should be updated on the next tick:
+      // indicates that the stage should be updated on the next tick:
       update = true;
     }
   });
@@ -110,13 +112,17 @@ function rotateCounter(shape) {
   update = true;
 }
 
-// function rotateWheel(type){
-// if(type){
-//   //clockwise
-//   shape2.rotation = shape2.rotation + rotdegr;
-// }else{
-//   //anti clockwise
-//   shape2.rotation = shape2.rotation - rotdegr;
+$('document').ready(function() {
+  init();
+});
+
+// function persist(){
+//   for (i = 0 ; i < stage.length(); i++){
+//       persistence = JSON.stringify(stage[i].properties);
+//   }
+//   return persistence
 // }
-// stage.update();
+// function scalingValue(height, width){
+//   scalex = stage.x/width //pixels/ft
+//   scaley = stage.y/height//pixels/ft
 // }

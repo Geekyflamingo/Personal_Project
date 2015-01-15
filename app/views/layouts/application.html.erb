@@ -33,11 +33,11 @@
             <% if current_user %>
               <%= link_to ("Hello, #{current_user.first_name} #{current_user.last_name} !"), dashboard_path %>
               |
-              <%= link_to "Sign Out", signout_path, class: "btn btn-primary" %>
+              <%= link_to "Sign Out", signout_path, class: "btn btn-primary btn-md" %>
 
             <% else %>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            <button type="button" class="sign-in btn btn-primary btn-md" data-toggle="modal" data-target="#myModal">
               Sign In
             </button>
 
@@ -70,14 +70,14 @@
               </div>
               <% end %>
             </div>
-              <%= link_to 'Sign Up', signup_path, class: "btn btn-primary"%>
+            <%= link_to 'Sign Up', signup_path, class: "btn btn-success btn-md"%>
             <% end %></li>
           </ul>
         </div>
       </nav>
-    <div class="page">
+
       <%= yield %>
-    </div>
+
      <!-- FOOTER -->
      <footer class="footer">
       <div class="container">

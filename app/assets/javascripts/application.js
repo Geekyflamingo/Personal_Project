@@ -54,59 +54,32 @@ function init(){
 }
 
 function newJump(){
-  //new rectangle(jump)
-  var jump = new fabric.Rect({ left:500, top:500, width:110, height: 20, fill: 'red', stroke: 'blue', strokeWidth: 5});
-  // jump.set({x:500, y:500});
+  var l1 = new fabric.Rect({left: 100, top: 6, width:80, height: 6, fill: 'white'});
+  var l2 = new fabric.Rect({left: 100, width:80, height: 21, fill: 'blue'});
+  var end1 = new fabric.Rect({left:100, width: 10, height: 18, fill: 'black'});
+  var end2 = new fabric.Rect({left:180, width: 10, height: 18, fill: 'black'});
+  var str1 = new fabric.Rect({left:120, top: 6,  width: 10, height: 6, fill: 'black'});
+  var str2 = new fabric.Rect({left:140, top: 6,  width: 10, height: 6, fill: 'black'});
+  var str3 = new fabric.Rect({left:160, top: 6,  width: 10, height: 6, fill: 'black'});
+  var jump = new fabric.Group([ l1, end1, end2,str1, str2, str3],{left:500, top:500});
   jump.set('selectable', true);
   jump.lockScalingX = true;
   jump.lockScalingY = true;
   jump.hasBorders = false;
-  // jump.regX = 50;
-  // jump.regY = 5;
-  // jump.x = stageWidth/2;
-  // jump.y = stageHeight/2;
-  // jump.snapToPixel = true;
-  // jump.mouseEnabled = true;
-  // jump.alpha = 0.7;
-  // // using "on" binds the listener to the scope of the currentTarget by default
-  // // in this case that means it executes in the scope of the button.
-  // jump.on("mousedown", function (evt) {
-  //   this.parent.addChild(this);
-  //   console.log(this, evt);
-  //   this.offset = {
-  //     x: this.x - evt.stageX,
-  //     y: this.y - evt.stageY
-  //   };
-  // });
-  // // the pressmove event is dispatched when the mouse moves after a mousedown on the target until the mouse is released.
-  // jump.on("pressmove", function (evt) {
-  //   console.log(this.offset);
-  //   console.log(Math.sin(jump.rotation));
-  //   // if(Math.abs(Math.sin(jump.rotation)) < .15)){
-  //   //
-  //   // }else{
-  //   //
-  //   // }
-  //   if( Math.abs(this.offset.x) > 20 ){
-  //     rotateCounter(this);
-  //   }else{
-  //     this.x = evt.stageX + this.offset.x;
-  //     this.y = evt.stageY + this.offset.y;
-  //     // indicates that the stage should be updated on the next tick:
-  //     update = true;
-  //   }
-  // });
   stage.add(jump);
-  // stage.update();
-  //draw to the canvas
-
 }
 
 
 
 function persist(){
   var persistence = JSON.stringify(stage);
-  return persistence
+  $.ajax({
+  type: "POST",
+  url: url,
+  data: persistence,
+  success: success,
+  dataType: 'json'
+});
 }
 // function scalingValue(height, width){
 //   scalex = stage.x/width //pixels/ft

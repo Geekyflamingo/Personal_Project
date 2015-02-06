@@ -1,3 +1,9 @@
+  <!--
+  Step 1: Make this prop availible to the dom, but hidden from users.
+  Step 2: Get this value in javascript.
+
+ -->
+  <article id= "user" data-userid = "<%= current_user[:id] %>"></article>
 
   <div id="menu" class="menu">
     <div class="arrow"><</div>
@@ -13,9 +19,14 @@
   </div>
 
 <div class = "pull-right col-md-6">
-  <button type="button" id="myButton" class="pull-right btn btn-primary btn-lg" onclick = "newJump();">
+  <!-- Button trigger modal -->
+  <button type="button" id="myButton" class="pull-right btn btn-primary btn-lg">
     Add a Jump
   </button>
+  <button type="button" id="saveButton" class="pull-right btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Save Course
+  </button>
+
 </div>
 
 

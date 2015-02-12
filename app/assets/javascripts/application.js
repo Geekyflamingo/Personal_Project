@@ -39,7 +39,11 @@ $(document).on('click', '#saveButton', function () {
   persist();
 });
 
-function init(coursePath){
+$(document).on('click', '#loadButton', function () {
+  load();
+});
+
+function init(){
   stage = new fabric.Canvas(document.getElementById("myCanvas"));
   article = document.getElementById('user');
 }
@@ -52,7 +56,7 @@ function newJump(){
   var str1 = new fabric.Rect({left:120, top: 6,  width: 10, height: 6, fill: 'white'});
   var str2 = new fabric.Rect({left:140, top: 6,  width: 10, height: 6, fill: 'red'});
   var str3 = new fabric.Rect({left:160, top: 6,  width: 10, height: 6, fill: 'yellow'});
-  var jump = new fabric.Group([ l1, end1, end2,str1, str2, str3],{left:500, top:500});
+  var jump = new fabric.Group([ l1, end1, end2,str1, str2, str3],{left:500, top:500}); // This is the problem!
   jump.set('selectable', true);
   jump.lockScalingX = true;
   jump.lockScalingY = true;
@@ -68,7 +72,7 @@ function newJump(){
 
 function persist(){
   //var article = document.getElementById('user')
-  var persistence = JSON.stringify(stage);
+  var persistence = JSON.stringify(stage.toJSON());
   var obj = {course: {name: 'voodoo', jumps: persistence, user_id: article.dataset.userid }};
   $.ajax({
     type: "POST",
@@ -79,19 +83,28 @@ function persist(){
   });
 }
 
-function getUserCourses(){
-  $.ajax({
-    type: "GET",
-    url: "/courses",
-    success: alert("success!"),
-  });
-}
+// function getUserCourses(){
+//   $.ajax({
+//     type: "GET",
+//     url: "/courses",
+//     success: alert("success!"),
+//   });
+// }
 
 function load(){
-$.ajax({
-  type: "GET",
-  url: "/courses/" + /*NEED COURSE ID HERE*/ + "/edit",
-  success: alert("success!"),
+
+// $.ajax({
+//   type: "GET",
+//   url: "/courses/11/edit",
+//   dataType:"JSON"
+// })
+$.get("/courses/36",function(course){
+
+  for (var i = 0; i < course.jumps.objects.length; i++) {
+    delete course.jumps.objects[i].fill;
+  }
+
+  stage.loadFromJSON(course.jumps, stage.renderAll.bind(stage));
 });
 }
 // function scalingValue(height, width){

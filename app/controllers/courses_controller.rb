@@ -6,7 +6,7 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @course = Course.where(user_id: current_user).find(params[:id])
+    render json: @course
   end
 
   def new

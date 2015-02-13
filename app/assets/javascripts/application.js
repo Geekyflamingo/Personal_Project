@@ -15,7 +15,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 
 $(document).on("ajax:success", "[data-behavior=sign-in]", function (e, response) {
@@ -98,6 +97,7 @@ function load(){
 //   url: "/courses/11/edit",
 //   dataType:"JSON"
 // })
+
 $.get("/courses/36",function(course){
 
   for (var i = 0; i < course.jumps.objects.length; i++) {

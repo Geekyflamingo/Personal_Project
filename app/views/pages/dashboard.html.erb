@@ -5,100 +5,91 @@
  -->
   <article id= "user" data-userid = "<%= current_user[:id] %>"></article>
 
-  <!-- <div id="menu" class="menu">
-    <div class="arrow"><</div>
-    <nav class="nav">
-      <h3>Instructions</h3>
-      <p>1. Click on New Arena  </p>
-      <p>2. Fill in the dimensions of your arena </p>
-      <p>3. Go to right panel and select a jump</p>
-      <p>4. Drag and drop jump to the place you want it in the arena </p>
-      <p>5. Repeat until satisfied</p>
-      <p>6. Measure strides between jumps </p>
-    </nav>
-  </div> -->
+<div class = "pull-right col-md-3">
+  <div class = "add_jump">
+    <button type="button" id="myButton" class="btn btn-primary btn-lg">
+      Add a Jump
+    </button>
+  </div>
+  <div class = "save_course">
+    <button type="button" id = "anotherButton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveModal" data-whatever="savecourse">
+      Save Course
+    </button>
 
-<div class = "pull-right col-md-6">
-
-  <button type="button" id="myButton" class="pull-right btn btn-primary btn-lg">
-    Add a Jump
-  </button>
-
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveModal" data-whatever="savecourse">
-    Save Course
-  </button>
-
-  <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="exampleModalLabel">Save Course</h4>
+    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">Save Course</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="control-label">Course Name:</label>
+                <input type="text" class="form-control" id="name">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" id= "saveButton" class="btn btn-primary">Save Course</button>
+          </div>
         </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="control-label">Course Name:</label>
-              <input type="text" class="form-control" id="name">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" id= "saveButton" class="btn btn-primary">Save Course</button>
+      </div>
+    </div>
+  </div>
+
+  <div class = "load_course"><!-- Button trigger modal -->
+    <button type="button" id = "load" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loadModal">
+      Load Course
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="loadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Load Course</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th class = "col-md-5">Name</th>
+                  <th class = "col-md-5"> Date Created</th>
+                </tr>
+              </thead>
+              <% current_user.courses.each do |course| %>
+              <tbody>
+                <tr>
+                <td><%= course.name%></td>
+                <td> <%= course.created_at %></td>
+                <td> <button type="button" id="loadButton" class="pull-right btn btn-primary">
+                        Load Course
+                      </button>
+                </td>
+              </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loadModal">
-  Load Course
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="loadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Load Course</h4>
-      </div>
-      <div class="modal-body">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th class = "col-md-5">Name</th>
-              <th class = "col-md-5"> Date Created</th>
-            </tr>
-          </thead>
-          <% current_user.courses.each do |course| %>
-          <tbody>
-            <tr>
-            <td><%= course.name%></td>
-            <td> <%= course.created_at %></td>
-            <td> <button type="button" id="loadButton" class="pull-right btn btn-primary">
-                    Load Course
-                  </button>
-            </td>
-          </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
+<div class = "col-md-9">
   <canvas class="main-canvas" id="myCanvas" width="1000" height="600">
       Your browser does not support the HTML5 canvas tag.
   </canvas>
-
+</div>
 
 <br>
 <br>

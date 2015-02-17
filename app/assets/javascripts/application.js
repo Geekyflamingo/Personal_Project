@@ -98,7 +98,7 @@ function load(){
 //   dataType:"JSON"
 // })
 
-$.get("/courses/38",function(course){
+$.get("/courses/45",function(course){
 
   for (var i = 0; i < course.jumps.objects.length; i++) {
     delete course.jumps.objects[i].fill;

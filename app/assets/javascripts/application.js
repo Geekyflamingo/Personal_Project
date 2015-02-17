@@ -35,7 +35,7 @@ $(document).on('click', '#myButton', function () {
 });
 
 $(document).on('click', '#saveButton', function () {
-  persist();
+  persist(document.getElementById('name').value);
 });
 
 $(document).on('click', '#loadButton', function () {
@@ -69,10 +69,10 @@ function newJump(){
   stage.add(jump);
 }
 
-function persist(){
+function persist(name){
   //var article = document.getElementById('user')
   var persistence = JSON.stringify(stage.toJSON());
-  var obj = {course: {name: 'voodoo', jumps: persistence, user_id: article.dataset.userid }};
+  var obj = {course: {name: name, jumps: persistence, user_id: article.dataset.userid }};
   $.ajax({
     type: "POST",
     url: "/courses",
@@ -98,7 +98,7 @@ function load(){
 //   dataType:"JSON"
 // })
 
-$.get("/courses/36",function(course){
+$.get("/courses/38",function(course){
 
   for (var i = 0; i < course.jumps.objects.length; i++) {
     delete course.jumps.objects[i].fill;

@@ -15,7 +15,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 
 $(document).on("ajax:success", "[data-behavior=sign-in]", function (e, response) {
@@ -31,107 +30,83 @@ $(document).on("click", "[data-behavior=sign-in] input[type=submit]", function (
   $(this).closest("form").find(".text-danger").addClass("invisible");
 });
 
-var stageWidth = 1000;
-var stageHeight = 800;
-var stage;
-var update = true;
-var rotate_clockwise;
-var img;
-var rotdegr = 3;
-var timer;
+$(document).on('click', '#myButton', function () {
+  newJump();
+});
+
+$(document).on('click', '#saveButton', function () {
+  persist(document.getElementById('name').value);
+});
+
+$(document).on('click', '#loadButton', function () {
+  load();
+});
 
 function init(){
-
-  //new stage
-  stage = new createjs.Stage(document.getElementById("myCanvas"));
-  stage.enableMouseOver();
-  stage.autoClear = true;
-  stage.enableDOMEvents(true);
-  createjs.Touch.enable(stage);
-  createjs.Ticker.setFPS(200);
-  createjs.Ticker.addEventListener("tick",tick);
+  stage = new fabric.Canvas(document.getElementById("myCanvas"));
+  article = document.getElementById('user');
 }
 
 function newJump(){
-  //new rectangle(jump)
-  var jump = new createjs.Shape();
-  jump.graphics.beginFill(createjs.Graphics.getRGB(0,0,255));
-  jump.graphics.rect(0,0,110,20);
-  jump.graphics.beginFill(createjs.Graphics.getRGB(255,0,0));
-  jump.graphics.rect(5,5,100,10);
-  jump.regX = 50;
-  jump.regY = 5;
-  jump.x = stageWidth/2;
-  jump.y = stageHeight/2;
-  jump.snapToPixel = true;
-  jump.mouseEnabled = true;
-  jump.alpha = 0.7;
-  // using "on" binds the listener to the scope of the currentTarget by default
-  // in this case that means it executes in the scope of the button.
-  jump.on("mousedown", function (evt) {
-    this.parent.addChild(this);
-    console.log(this, evt);
-    this.offset = {
-      x: this.x - evt.stageX,
-      y: this.y - evt.stageY
-    };
+  var l1 = new fabric.Rect({left: 100, top: 6, width:80, height: 6, fill: 'black'});
+  var l2 = new fabric.Rect({left: 100, width:80, height: 21, fill: 'blue'});
+  var end1 = new fabric.Rect({left:100, width: 10, height: 18, fill: 'black'});
+  var end2 = new fabric.Rect({left:180, width: 10, height: 18, fill: 'black'});
+  var str1 = new fabric.Rect({left:120, top: 6,  width: 10, height: 6, fill: 'white'});
+  var str2 = new fabric.Rect({left:140, top: 6,  width: 10, height: 6, fill: 'red'});
+  var str3 = new fabric.Rect({left:160, top: 6,  width: 10, height: 6, fill: 'yellow'});
+  var jump = new fabric.Group([ l1, end1, end2,str1, str2, str3],{left:500, top:500}); // This is the problem!
+  jump.set('selectable', true);
+  jump.lockScalingX = true;
+  jump.lockScalingY = true;
+  jump.hasBorders = false;
+  jump.hoverCursor = 'pointer';
+  jump.set({
+    cornerColor: 'black',
+    cornerSize: 8,
+    transparentCorners: true,
   });
-  // the pressmove event is dispatched when the mouse moves after a mousedown on the target until the mouse is released.
-  jump.on("pressmove", function (evt) {
-    console.log(this.offset);
-    console.log(Math.sin(jump.rotation));
-    // if(Math.abs(Math.sin(jump.rotation)) < .15)){
-    //
-    // }else{
-    //
-    // }
-    if( Math.abs(this.offset.x) > 20 ){
-      rotateCounter(this);
-    }else{
-      this.x = evt.stageX + this.offset.x;
-      this.y = evt.stageY + this.offset.y;
-      // indicates that the stage should be updated on the next tick:
-      update = true;
-    }
+  stage.add(jump);
+}
+
+function persist(name){
+  //var article = document.getElementById('user')
+  var persistence = JSON.stringify(stage.toJSON());
+  var obj = {course: {name: name, jumps: persistence, user_id: article.dataset.userid }};
+  $.ajax({
+    type: "POST",
+    url: "/courses",
+    data: obj,
+    success: alert("success!"),
+    dataType: 'json'
   });
-  stage.addChild(jump);
-  stage.update();
-  //draw to the canvas
-
 }
 
-
-function pressHandler(e){
-  e.onMouseMove = function(ev){
-    e.target.x = ev.stageX;
-    e.target.y = ev.stageY;
-    update = true;
-  }
-}
-
-function tick(event) {
-  // this set makes it so the stage only re-renders when an event handler indicates a change has happened.
-  if (update) {
-    update = false; // only update once
-    stage.update(event);
-  }
-}
-
-function stop() {
-  createjs.Ticker.removeEventListener("tick", tick);
-}
-
-function rotateCounter(shape) {
-  shape.rotation += -3;
-  update = true;
-}
-
-// function persist(){
-//   for (i = 0 ; i < stage.length(); i++){
-//       persistence = JSON.stringify(stage[i].properties);
-//   }
-//   return persistence
+// function getUserCourses(){
+//   $.ajax({
+//     type: "GET",
+//     url: "/courses",
+//     success: alert("success!"),
+//   });
 // }
+
+function load(){
+
+// $.ajax({
+//   type: "GET",
+//   url: "/courses/11/edit",
+//   dataType:"JSON"
+// })
+
+$.get("/courses/45",function(course){
+
+  for (var i = 0; i < course.jumps.objects.length; i++) {
+    delete course.jumps.objects[i].fill;
+  }
+
+  stage.loadFromJSON(course.jumps, stage.renderAll.bind(stage));
+});
+}
 // function scalingValue(height, width){
 //   scalex = stage.x/width //pixels/ft
 //   scaley = stage.y/height//pixels/ft

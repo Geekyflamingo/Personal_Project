@@ -15,3 +15,7 @@ For the non-horse person here are some links to what hunter/jumper and cross-cou
 http://en.wikipedia.org/wiki/Show_hunter
 http://en.wikipedia.org/wiki/Show_jumping
 http://en.wikipedia.org/wiki/Cross-country_equestrianism
+
+
+1. Save button
+2. Load button

@@ -11,7 +11,8 @@
     <title>On Course!</title>
 
     <%= stylesheet_link_tag 'application' %>
-    <script src="//code.createjs.com/easeljs-0.8.0.min.js"></script>
+    <!-- <script src="//code.createjs.com/easeljs-0.8.0.min.js"></script> %> -->
+    <script src="//rawgit.com/kangax/fabric.js/master/dist/fabric.js"></script>
   </head>
 
   <body <% if request.fullpath == '/' %> class="home-page" <% end %>>
@@ -77,12 +78,7 @@
       <%= yield %>
 
      <!-- FOOTER -->
-     <footer class="footer">
-      <div class="container">
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-      </div>
-     </footer>
+     
 
    </div><!-- /.container -->
 

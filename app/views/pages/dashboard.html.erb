@@ -1,18 +1,63 @@
-  <!--
-  Step 1: Make this prop availible to the dom, but hidden from users.
-  Step 2: Get this value in javascript.
+<article id= "user" data-userid = "<%= current_user[:id] %>"></article>
 
- -->
-  <article id= "user" data-userid = "<%= current_user[:id] %>"></article>
-
-<div class = "pull-right col-md-3">
+<div class = "pull-right col-md-3 todo">
   <div class = "add_jump">
-    <button type="button" id="myButton" class="btn btn-primary btn-lg">
+    <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#jumpModal" data-whatever="addjump">
       Add a Jump
     </button>
+    <div class="modal fade" id="jumpModal" tabindex="-1" role="dialog" aria-labelledby="jumpModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="jumpModalLabel">Add a Jump</h4>
+          </div>
+          <div class="modal-body">
+              <h4> Choose your colors: </h4>
+            <form>
+                <label for="choose-standard" class="control-label">Standard Color:</label>
+                <input type="text" id="colorPick1" class="colorPick"/>
+              <div class="form-group">
+                <label for="choose-base" class="control-label">Base color:</label>
+                <input type="text" id="colorPick6" class="colorPick"/>
+              </div>
+              <div class="form-group">
+                <label for="choose-color1" class="control-label">Stripe Color 1:</label>
+                <input type="text" id="colorPick3" class="colorPick"/>
+              </div>
+              <div class="form-group">
+                <label for="choose-color2" class="control-label">Stripe Color 2:</label>
+                <input type="text" id="colorPick4" class="colorPick"/>
+              </div>
+              <div class="form-group">
+                <label for="choose-color3" class="control-label">Stripe Color 3:</label>
+                <input type="text" id="colorPick5" class="colorPick"/>
+              </div>
+              <h4> Choose your type: </h4>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="radio" aria-label="...">
+                      </span>
+                      <label for="type" class="control-label">Standard</label>
+                    </div><!-- /input-group -->
+                  </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" id="myButton" class="btn btn-primary">Create Jump!</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class = "save_course">
-    <button type="button" id = "anotherButton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveModal" data-whatever="savecourse">
+    <button type="button" id = "anotherButton" class="btn btn-success btn-lg" data-toggle="modal" data-target="#saveModal" data-whatever="savecourse">
       Save Course
     </button>
 
@@ -41,7 +86,7 @@
   </div>
 
   <div class = "load_course"><!-- Button trigger modal -->
-    <button type="button" id = "load" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loadModal">
+    <button type="button" id = "load" class="btn btn-info btn-lg" data-toggle="modal" data-target="#loadModal">
       Load Course
     </button>
 
@@ -66,7 +111,7 @@
                 <tr>
                 <td><%= course.name%></td>
                 <td> <%= course.created_at %></td>
-                <td> <button type="button" id="loadButton" class="pull-right btn btn-primary">
+                <td> <button type="button" id="loadButton"  data-id = "<%= course.id %>" class="pull-right btn btn-primary">
                         Load Course
                       </button>
                 </td>
@@ -90,6 +135,25 @@
       Your browser does not support the HTML5 canvas tag.
   </canvas>
 </div>
+
+  <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+          <h4 class="modal-title" id="exampleModalLabel">Jump Order</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label class="control-label">Jump Number:</label>
+              <input type="text" class="form-control" id="order">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <br>
 <br>

@@ -11,8 +11,10 @@
     <title>On Course!</title>
 
     <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'colpick' %>
     <!-- <script src="//code.createjs.com/easeljs-0.8.0.min.js"></script> %> -->
     <script src="//rawgit.com/kangax/fabric.js/master/dist/fabric.js"></script>
+
   </head>
 
   <body <% if request.fullpath == '/' %> class="home-page" <% end %>>
@@ -78,12 +80,14 @@
       <%= yield %>
 
      <!-- FOOTER -->
-     
+
 
    </div><!-- /.container -->
 
 
    <%= javascript_include_tag 'application' %>
+   <%= javascript_include_tag 'fabricEXT' %>
+   <%= javascript_include_tag 'colpick' %>
    <%= content_for(:javascripts) %>
  </body>
 </html>

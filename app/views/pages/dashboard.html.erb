@@ -13,27 +13,58 @@
             <h4 class="modal-title" id="jumpModalLabel">Add a Jump</h4>
           </div>
           <div class="modal-body">
-              <h4> Choose your colors: </h4>
-            <form>
-                <label for="choose-standard" class="control-label">Standard Color:</label>
-                <input type="text" id="colorPick1" class="colorPick"/>
-              <div class="form-group">
-                <label for="choose-base" class="control-label">Base color:</label>
-                <input type="text" id="colorPick6" class="colorPick"/>
-              </div>
-              <div class="form-group">
-                <label for="choose-color1" class="control-label">Stripe Color 1:</label>
-                <input type="text" id="colorPick3" class="colorPick"/>
-              </div>
-              <div class="form-group">
-                <label for="choose-color2" class="control-label">Stripe Color 2:</label>
-                <input type="text" id="colorPick4" class="colorPick"/>
-              </div>
-              <div class="form-group">
-                <label for="choose-color3" class="control-label">Stripe Color 3:</label>
-                <input type="text" id="colorPick5" class="colorPick"/>
-              </div>
-              <h4> Choose your type: </h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      <h4> Choose your colors: </h4>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      Standard color:
+                    </td>
+                    <td>
+                      <input type="text" id="colorPick1" class="colorPick"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Base color:
+                    </td>
+                    <td>
+                      <input type="text" id="colorPick2" class="colorPick"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Stripe Color 1:
+                    </td>
+                    <td>
+                      <input type="text" id="colorPick3" class="colorPick"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Stripe Color 2:
+                    </td>
+                    <td>
+                      <input type="text" id="colorPick4" class="colorPick"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Stripe Color 3:
+                    </td>
+                    <td>
+                      <input type="text" id="colorPick5" class="colorPick"/>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- <h4> Choose your type: </h4>
               <div class="form-group">
                 <div class="row">
                   <div class="col-lg-6">
@@ -42,11 +73,10 @@
                         <input type="radio" aria-label="...">
                       </span>
                       <label for="type" class="control-label">Standard</label>
-                    </div><!-- /input-group -->
-                  </div><!-- /.col-lg-6 -->
-                </div><!-- /.row -->
-              </div>
-            </form>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -110,7 +140,7 @@
               <tbody>
                 <tr>
                 <td><%= course.name%></td>
-                <td> <%= course.created_at %></td>
+                <td> <%= course.created_at.strftime("%b %d, %Y") %></td>
                 <td> <button type="button" id="loadButton"  data-id = "<%= course.id %>" class="pull-right btn btn-primary">
                         Load Course
                       </button>

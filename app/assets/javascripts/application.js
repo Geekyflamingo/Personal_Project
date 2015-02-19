@@ -16,6 +16,19 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+//= require fabricEXT.js
+//= require colpick.js
+
+$(document).ready(function() {
+    		$('.colorPick').colpick({
+    			layout:'hex',
+    			colorScheme:'dark',
+				onSubmit:function(hsb,hex,rgb,el) {
+					$(el).css('background-color', '#'+hex);
+					$(el).colpickHide();
+				}
+    		});
+    	});
 
 $(document).on("ajax:success", "[data-behavior=sign-in]", function (e, response) {
   if (response.error) {
@@ -39,7 +52,8 @@ $(document).on('click', '#saveButton', function () {
 });
 
 $(document).on('click', '#loadButton', function () {
-  load();
+  var courseId = $(this).data('id');
+  load(courseId);
 });
 
 function init(){
@@ -48,14 +62,15 @@ function init(){
 }
 
 function newJump(){
-  var l1 = new fabric.Rect({left: 100, top: 6, width:80, height: 6, fill: 'black'});
+  var l1 = new fabric.Rect({left: 100, top: 6, width:80, height: 6, fill: document.getElementById('colorPick2').style.cssText.split(":")[1]});
   var l2 = new fabric.Rect({left: 100, width:80, height: 21, fill: 'blue'});
-  var end1 = new fabric.Rect({left:100, width: 10, height: 18, fill: 'black'});
-  var end2 = new fabric.Rect({left:180, width: 10, height: 18, fill: 'black'});
-  var str1 = new fabric.Rect({left:120, top: 6,  width: 10, height: 6, fill: 'white'});
-  var str2 = new fabric.Rect({left:140, top: 6,  width: 10, height: 6, fill: 'red'});
-  var str3 = new fabric.Rect({left:160, top: 6,  width: 10, height: 6, fill: 'yellow'});
-  var jump = new fabric.Group([ l1, end1, end2,str1, str2, str3],{left:500, top:500}); // This is the problem!
+  var end1 = new fabric.Rect({left:100, width: 11, height: 18, fill: document.getElementById('colorPick1').style.cssText.split(":")[1]});
+  var end2 = new fabric.Rect({left:180, width: 11, height: 18, fill: document.getElementById('colorPick1').style.cssText.split(":")[1]});
+  var str1 = new fabric.Rect({left:120, top: 6,  width: 10, height: 6, fill: document.getElementById('colorPick3').style.cssText.split(":")[1]});
+  var str2 = new fabric.Rect({left:140, top: 6,  width: 10, height: 6, fill: document.getElementById('colorPick4').style.cssText.split(":")[1]});
+  var str3 = new fabric.Rect({left:160, top: 6,  width: 10, height: 6, fill: document.getElementById('colorPick5').style.cssText.split(":")[1]});
+  var num = new fabric.Text("",{ fontSize: 15, originX:'center', originY:'center', left: 90, top: 10,});
+  var jump = new fabric.Group([ l1, end1, end2,str1, str2, str3, num],{left:500, top:500}); // This is the problem!
   jump.set('selectable', true);
   jump.lockScalingX = true;
   jump.lockScalingY = true;
@@ -66,11 +81,14 @@ function newJump(){
     cornerSize: 8,
     transparentCorners: true,
   });
+  // l1.on('event:selected', function (options) {
+  //   console.log('mouse:dblclick');
+  // });
   stage.add(jump);
 }
 
 function persist(name){
-  //var article = document.getElementById('user')
+
   var persistence = JSON.stringify(stage.toJSON());
   var obj = {course: {name: name, jumps: persistence, user_id: article.dataset.userid }};
   $.ajax({
@@ -82,30 +100,16 @@ function persist(name){
   });
 }
 
-// function getUserCourses(){
-//   $.ajax({
-//     type: "GET",
-//     url: "/courses",
-//     success: alert("success!"),
-//   });
-// }
+function load(cID){
 
-function load(){
+  $.get("/courses/" + cID,function(course){
 
-// $.ajax({
-//   type: "GET",
-//   url: "/courses/11/edit",
-//   dataType:"JSON"
-// })
+    for (var i = 0; i < course.jumps.objects.length; i++) {
+      delete course.jumps.objects[i].fill;
+    }
 
-$.get("/courses/45",function(course){
-
-  for (var i = 0; i < course.jumps.objects.length; i++) {
-    delete course.jumps.objects[i].fill;
-  }
-
-  stage.loadFromJSON(course.jumps, stage.renderAll.bind(stage));
-});
+    stage.loadFromJSON(course.jumps, stage.renderAll.bind(stage));
+  });
 }
 // function scalingValue(height, width){
 //   scalex = stage.x/width //pixels/ft

@@ -15,7 +15,7 @@
  *
  *= require_tree .
  *= require_self
- */
+*/
 .navbar-brand{
   font-size: 25px;
   padding: 10px;
@@ -88,4 +88,12 @@ canvas {
 #load{
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+/* .todo{
+  text-align: center;
+} */
+
+.colpick {
+  z-index: 9999;
 }

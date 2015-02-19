@@ -45,15 +45,19 @@ $(document).on("click", "[data-behavior=sign-in] input[type=submit]", function (
 
 $(document).on('click', '#myButton', function () {
   newJump();
+  $('#jumpModal').modal('hide');
 });
+
 
 $(document).on('click', '#saveButton', function () {
   persist(document.getElementById('name').value);
+  $('#saveModal').modal('hide');
 });
 
 $(document).on('click', '#loadButton', function () {
   var courseId = $(this).data('id');
   load(courseId);
+  $('#loadModal').modal('hide');
 });
 
 function init(){

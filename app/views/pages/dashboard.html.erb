@@ -13,11 +13,15 @@
             <h4 class="modal-title" id="jumpModalLabel">Add a Jump</h4>
           </div>
           <div class="modal-body">
+              <div class="form-group">
+                <label for="jump-order" class="control-label">Jump Number:</label>
+                <input type="text" class="form-control" id="ordering">
+              </div>
               <table>
                 <thead>
                   <tr>
                     <th>
-                      <h4> Choose your colors: </h4>
+                      <h4> Choose your colors: </h4><h6>(default is black with white stripes)</h6>
                     </th>
                   </tr>
                 </thead>
@@ -27,7 +31,7 @@
                       Standard color:
                     </td>
                     <td>
-                      <input type="text" id="colorPick1" class="colorPick"/>
+                      <input type="text" id="colorPick1" class="colorPick" style="background-color: rgb(000,000,000);"/>
                     </td>
                   </tr>
                   <tr>
@@ -35,7 +39,7 @@
                       Base color:
                     </td>
                     <td>
-                      <input type="text" id="colorPick2" class="colorPick"/>
+                      <input type="text" id="colorPick2" class="colorPick" style="background-color: rgb(000,000,000);"/>
                     </td>
                   </tr>
                   <tr>
@@ -43,7 +47,7 @@
                       Stripe Color 1:
                     </td>
                     <td>
-                      <input type="text" id="colorPick3" class="colorPick"/>
+                      <input type="text" id="colorPick3" class="colorPick" style="background-color: rgb(255,255,255);"/>
                     </td>
                   </tr>
                   <tr>
@@ -51,7 +55,7 @@
                       Stripe Color 2:
                     </td>
                     <td>
-                      <input type="text" id="colorPick4" class="colorPick"/>
+                      <input type="text" id="colorPick4" class="colorPick" style="background-color: rgb(255,255,255);"/>
                     </td>
                   </tr>
                   <tr>
@@ -59,24 +63,42 @@
                       Stripe Color 3:
                     </td>
                     <td>
-                      <input type="text" id="colorPick5" class="colorPick"/>
+                      <input type="text" id="colorPick5" class="colorPick" style="background-color: rgb(255,255,255);"/>
                     </td>
                   </tr>
                 </tbody>
               </table>
-              <!-- <h4> Choose your type: </h4>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <input type="radio" aria-label="...">
-                      </span>
-                      <label for="type" class="control-label">Standard</label>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
+            <h4> Choose your jump type: </h4>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="jumpType1" value="option1" checked>
+                Standard
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="jumpType2" value="option2">
+                Oxer
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="jumpType3" value="option3">
+                Triple Bar
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="jumpType4" value="option4">
+                Single Liverpool
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="jumpType5" value="option5">
+                Oxer Liverpool
+              </label>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

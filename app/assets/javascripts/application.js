@@ -60,6 +60,11 @@ $(document).on('click', '#loadButton', function () {
   $('#loadModal').modal('hide');
 });
 
+$(document).on('click', '#email', function () {
+  var courseId = $(this).data('id');
+  downloadIt();
+});
+
 function init(){
   stage = new fabric.Canvas(document.getElementById("myCanvas"));
   article = document.getElementById('user');
@@ -219,6 +224,28 @@ function load(cID){
     stage.loadFromJSON(course.jumps, stage.renderAll.bind(stage));
   });
 }
+
+
+function mailIt(){
+  var image = stage.toDataURL();
+  var svg = stage.toSVG({suppressPreamble: true});
+  //var link = document.createElement("a");
+  var link = "mailto:?"
+           + "to=&"
+           + "body=Stay ON COURSE"
+           + "&subject=Jumping Course"
+           + "&attach="+""+svg;
+window.location.href = link;
+}
+function downloadIt(){
+  stage.setBackgroundColor("#D1C860", null);
+  var image = stage.toDataURL();
+  var link = document.createElement("a");
+  link.download = "OnCourse";
+  link.href = image;
+  link.click();
+}
+
 // function scalingValue(height, width){
 //   scalex = stage.x/width //pixels/ft
 //   scaley = stage.y/height//pixels/ft
